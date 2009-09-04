@@ -8,25 +8,25 @@ perl_version '5.006';
 version_from 'lib/POE/Component/Server/SimpleHTTP/PreFork.pm';
 abstract_from 'lib/POE/Component/Server/SimpleHTTP/PreFork.pm';
 
-requires    'HTTP::Date'       =>    0;
-requires    'Carp'             =>    0;
-requires    'Sys::Hostname'    =>    0;
-requires    'POE'              =>    '1.0000';
-requires    'Storable'         =>    0;
-requires    'Socket'           =>    0;
-requires    'HTTP::Request'    =>    0;
-requires    'HTTP::Response'   =>    0;
-requires    'Moose'	       =>    0.81;
-requires    'MooseX::AttributeHelpers' => 0;
-requires    'MooseX::POE'      =>    0.205;
+requires    'HTTP::Date'                         =>    0;
+requires    'Carp'                               =>    0;
+requires    'Sys::Hostname'                      =>    0;
+requires    'POE'                                =>    '1.0000';
+requires    'Storable'                           =>    0;
+requires    'Socket'                             =>    0;
+requires    'HTTP::Request'                      =>    0;
+requires    'HTTP::Response'                     =>    0;
+requires    'Moose'	                             =>    0.81;
+requires    'MooseX::AttributeHelpers'           =>    0;
+requires    'MooseX::POE'                        =>    0.205;
 
-requires    'POE::Component::Server::SimpleHTTP' => 2.00;
-requires    'IPC::Shareable' => '0';
+requires    'POE::Component::Server::SimpleHTTP' =>    2.0;
+requires    'IPC::Shareable'                     =>    0;
 
-build_requires   'Test::More'                   => 0.47;
-build_requires	 'POE::Filter::HTTP::Parser'	=> 0.02;
-build_requires	 'Test::POE::Client::TCP'	=> 0.10;
-build_requires   'POE::Component::Client::HTTP' => 0.82;
+build_requires   'Test::More'                    =>    0.47;
+build_requires	 'POE::Filter::HTTP::Parser'	   =>    0.02;
+build_requires	 'Test::POE::Client::TCP'	       =>    0.10;
+build_requires   'POE::Component::Client::HTTP'  =>    0.82;
 
 auto_provides;
 githubmeta;
