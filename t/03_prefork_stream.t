@@ -188,7 +188,5 @@ sub GOT_STREAM {
 }
 
 sub keepalive { 
-   my ( $heap ) = @_[HEAP];
-
    $_[KERNEL]->delay_set('keepalive', 1);
 }

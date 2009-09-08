@@ -3,7 +3,7 @@ package POE::Component::Server::SimpleHTTP::PreFork;
 use strict;
 use warnings;
 
-our $VERSION = '1.99_03';
+our $VERSION = '1.99_04';
 
 use POE;
 use Socket;
@@ -385,7 +385,6 @@ event 'got_flush' => sub {
 event 'got_error' => sub {
    my ($kernel,$self) = @_[KERNEL,OBJECT];
    # Call the super class method.
-   next;
    my $rv = $self->SUPER::got_error(@_);
    # The connection was probably cleared, so update the scoreboard.
    $kernel->call( $_[SESSION], 'update_scoreboard' );
@@ -394,10 +393,11 @@ event 'got_error' => sub {
 
 # Closes the connection
 event 'CLOSE' => sub {
+   my ($kernel,$self) = @_[KERNEL,OBJECT];
    # Call the super class method.
-   my $rv = POE::Component::Server::SimpleHTTP::Request_Close(@_);
+   my $rv = $self->SUPER::CLOSE(@_);
    # The connection was probably cleared, so update the scoreboard.
-   $poe_kernel->call( $_[SESSION], 'update_scoreboard' );
+   $kernel->call( $_[SESSION], 'update_scoreboard' );
    return $rv;
 };
 
