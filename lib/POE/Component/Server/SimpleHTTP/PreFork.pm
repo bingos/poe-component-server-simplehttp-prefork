@@ -3,7 +3,7 @@ package POE::Component::Server::SimpleHTTP::PreFork;
 use strict;
 use warnings;
 
-our $VERSION = '1.99_05';
+our $VERSION = '2.04';
 
 use POE;
 use Socket;
