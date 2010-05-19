@@ -20,3 +20,4 @@ t/02_maxrequestperchild.t
 t/03_prefork_stream.t
 t/99_pod.t
 t/99_pod_coverage.t
+tools/git-log.pl

@@ -20,7 +20,7 @@ requires    'Moose'	                             =>    0.81;
 requires    'MooseX::AttributeHelpers'           =>    0;
 requires    'MooseX::POE'                        =>    0.205;
 
-requires    'POE::Component::Server::SimpleHTTP' =>    2.0;
+requires    'POE::Component::Server::SimpleHTTP' =>    2.04;
 requires    'IPC::Shareable'                     =>    0;
 
 build_requires   'Test::More'                    =>    0.47;
@@ -30,5 +30,8 @@ build_requires   'POE::Component::Client::HTTP'  =>    0.82;
 
 auto_provides;
 githubmeta;
+
+# Thanks to Matt Trout for this tip
+makemaker_args(dist => { PREOP => "$^X tools/git-log.pl > ./Changes" });
 
 WriteAll();
