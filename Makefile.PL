@@ -7,6 +7,7 @@ auto_license holder => 'Apocalypse, Chris Williams, Eriam Schaffter, Marlon Bail
 perl_version '5.006';
 version_from 'lib/POE/Component/Server/SimpleHTTP/PreFork.pm';
 abstract_from 'lib/POE/Component/Server/SimpleHTTP/PreFork.pm';
+readme_from 'lib/POE/Component/Server/SimpleHTTP/PreFork.pm';
 
 requires    'HTTP::Date'                         =>    0;
 requires    'Carp'                               =>    0;
