@@ -3,7 +3,7 @@ package POE::Component::Server::SimpleHTTP::PreFork;
 use strict;
 use warnings;
 
-our $VERSION = '1.99_04';
+our $VERSION = '1.99_05';
 
 use POE;
 use Socket;
@@ -102,6 +102,12 @@ has 'reqcount' => (
     dec => 'dec_reqcount',          
     reset => 'reset_reqcount',
   },
+);
+
+has 'ipc_glue' => (
+  is      => 'ro',
+  default => 'scbd',
+  isa     => subtype 'Str' => where { $_ =~ /^\d+$/s || length $_ == 4 },
 );
 
 sub START {
@@ -428,7 +434,7 @@ event 'prefork' => sub {
       my %temp;
 
 # In order to keep a pool of spare children we need to know how many spares there are.
-      $mem = tie %temp, 'IPC::Shareable', 'scbd',
+      $mem = tie %temp, 'IPC::Shareable', $self->ipc_glue,
         { 'create' => 1, 'mode' => 0600 };
       $scoreboard = \%temp;
    }
@@ -756,6 +762,7 @@ event '_sig_chld' => sub {
       # we are probably in a graceful shutdown.
       $kernel->yield( 'SHUTDOWN', 'GRACEFUL' ) if $children <= 0 and !$self->_factory;
    }
+   $kernel->sig_handled();
 };
 
 # Someone is asking us to quit...
@@ -902,6 +909,7 @@ POE::Component::Server::SimpleHTTP::PreFork - PreForking support for SimpleHTTP
 		'MAXSPARESERVERS'	=>	10,
 		'MAXCLIENTS'		=>	256,
 		'STARTSERVERS'		=>	10,
+		'IPC_GLUE'		=>	'uniq',
 	) or die 'Unable to create the HTTP Server';
 
 =head1 ABSTRACT
@@ -942,6 +950,14 @@ POE::Component::Server::SimpleHTTP::PreFork - PreForking support for SimpleHTTP
 	sessions. This allows you to setup per-process resources (such as database
 	connections, ldap connects, etc). These events will never be called for the
 	parent.
+
+=item C<IPC_GLUE>
+
+	A string containing either an integer or 4 characters specifying the key/glue
+	for the underlying parent/child IPC communication.
+	Running multiple instances of POE::Component::Server::SimpleHTTP::PreFork
+	on the same host without using this option with different values
+	almost guarantees some chaos.
 
 =back
 
