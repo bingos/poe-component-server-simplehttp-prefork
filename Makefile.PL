@@ -25,7 +25,7 @@ requires    'POE::Component::Server::SimpleHTTP' =>    2.04;
 requires    'IPC::Shareable'                     =>    0;
 
 build_requires   'Test::More'                    =>    0.47;
-build_requires	 'POE::Filter::HTTP::Parser'	   =>    0.02;
+build_requires	 'POE::Filter::HTTP::Parser'	   =>    1.06;
 build_requires	 'Test::POE::Client::TCP'	       =>    0.10;
 build_requires   'POE::Component::Client::HTTP'  =>    0.82;
 
