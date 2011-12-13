@@ -99,7 +99,7 @@ has 'reqcount' => (
   default   => sub { 0 },
   provides  => {
     inc => 'inc_reqcount',
-    dec => 'dec_reqcount',          
+    dec => 'dec_reqcount',
     reset => 'reset_reqcount',
   },
 );
@@ -112,7 +112,7 @@ has 'ipc_glue' => (
 
 sub START {
   $poe_kernel->sig( TERM => '_sig_term' );
-  $poe_kernel->sig( CHLD => '_sig_chld' );
+  #$poe_kernel->sig( CHLD => '_sig_chld' );
   return;
 }
 
@@ -124,7 +124,7 @@ event 'SHUTDOWN' => sub {
    $self->_clear_factory if $self->_factory;
 
    # Debug stuff
-   warn 'Stopped listening for new connections!' 
+   warn 'Stopped listening for new connections!'
      if POE::Component::Server::SimpleHTTP::DEBUG;
 
    my $children;
@@ -267,7 +267,7 @@ event 'start_listener' => sub {
 # Stops listening on the socket
 event 'STOPLISTEN' => sub {
    my ($kernel,$self,$session) = @_[KERNEL,OBJECT,SESSION];
-   
+
    if ( $self->is_child ) {
 
       # If we are the child then we shouldn't really stop listening.
@@ -297,7 +297,7 @@ event 'STOPLISTEN' => sub {
 
 event 'STARTLISTEN' => sub {
    my ($kernel,$self) = @_[KERNEL,OBJECT];
-   
+
    if ( $self->is_child ) {
 
       # If we are the child then we can't really create a new SOCKETFACTORY.
@@ -470,6 +470,7 @@ event 'prefork' => sub {
       elsif ($pid) {
 
          # We are the parent.
+         $kernel->sig_child( $pid, '_sig_chld' );
          next;
       }
       else {
