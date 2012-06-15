@@ -391,6 +391,10 @@ event 'got_flush' => sub {
 event 'got_error' => sub {
    my ($kernel,$self) = @_[KERNEL,OBJECT];
    # Call the super class method.
+   # but first shift @_ otherwise $self->SUPER::got_error(@_) results in
+   # $self/OBJECT being in the first two values in @_ param array to
+   # SimpleHTTP got_error method instead of just the first value
+   shift @_;
    my $rv = $self->SUPER::got_error(@_);
    # The connection was probably cleared, so update the scoreboard.
    $kernel->call( $_[SESSION], 'update_scoreboard' );
