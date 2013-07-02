@@ -32,7 +32,6 @@ BEGIN {
 }
 
 use MooseX::POE;
-use MooseX::AttributeHelpers;
 use Moose::Util::TypeConstraints;
 
 extends 'POE::Component::Server::SimpleHTTP';
@@ -93,14 +92,14 @@ has 'is_child' => (
 );
 
 has 'reqcount' => (
-  metaclass => 'Counter',
+  traits    => ['Counter'],
   is        => 'ro',
   isa       => 'Num',
   default   => sub { 0 },
-  provides  => {
-    inc => 'inc_reqcount',
-    dec => 'dec_reqcount',
-    reset => 'reset_reqcount',
+  handles  => {
+    'inc_reqcount', 'inc',
+    'dec_reqcount', 'dec',
+    'reset_reqcount', 'reset',
   },
 );
 

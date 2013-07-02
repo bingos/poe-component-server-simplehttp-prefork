@@ -17,8 +17,7 @@ requires    'Storable'                           =>    0;
 requires    'Socket'                             =>    0;
 requires    'HTTP::Request'                      =>    0;
 requires    'HTTP::Response'                     =>    0;
-requires    'Moose'	                             =>    0.81;
-requires    'MooseX::AttributeHelpers'           =>    0;
+requires    'Moose'	                             =>    0.90;
 requires    'MooseX::POE'                        =>    0.205;
 
 requires    'POE::Component::Server::SimpleHTTP' =>    2.04;
